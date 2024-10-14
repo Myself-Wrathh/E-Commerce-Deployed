@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { PlusCircle, Upload, Loader } from "lucide-react";
+import toast from "react-hot-toast";
+import { useProductStore } from "../stores/useProductStore";
 
 const categories = [
   "jeans",
@@ -13,6 +15,7 @@ const categories = [
 ];
 
 const CreateProductForm = () => {
+  const { createProduct, loading } = useProductStore();
   const [newProduct, setNewProduct] = useState({
     name: "",
     description: "",
@@ -20,11 +23,31 @@ const CreateProductForm = () => {
     category: "",
     image: "",
   });
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      await createProduct(newProduct);
+      setNewProduct({
+        name: "",
+        description: "",
+        price: "",
+        category: "",
+        image: "",
+      });
+      toast.success("Product Created Successfully.");
+    } catch (error) {
+      toast.error("An Error Occurred,Please try again.");
+    }
   };
-  const handleImageChange = () => {
-    
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setNewProduct({ ...newProduct, image: reader.result });
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   return (
@@ -144,7 +167,7 @@ const CreateProductForm = () => {
           />
           <label
             htmlFor="image"
-            className="cursor-pointer bg-gray-700 py-2 px-3 border border-gray-600 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-300 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500"
+            className="cursor-pointer bg-gray-700 py-2 px-3 border border-gray-600 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-300 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 align-middle"
           >
             <Upload className="h-5 w-5 inline-block mr-2" />
             Upload Image

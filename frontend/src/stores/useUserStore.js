@@ -2,7 +2,7 @@ import { create } from "zustand";
 import axios from "../lib/axios.js";
 import { toast } from "react-hot-toast";
 
-export const useUserStore = create((set, get) => ({
+export const useUserStore = create((set) => ({
   user: null,
   loading: false,
   checkingAuth: true,

@@ -6,10 +6,10 @@ export const getAllProducts = async (req, res) => {
   try {
     // finding all products
     const products = await Product.find({});
-    res.json({ products });
+    return res.json({ products });
   } catch (error) {
     console.log("Error in getAllProducts controller ", error.message);
-    res
+    return res
       .status(500)
       .json({ message: "Internal server error", error: error.message });
   }
@@ -30,8 +30,8 @@ export const getFeaturedProducts = async (req, res) => {
     }
 
     // store in redis to access faster in future
-    await redis.set("featured_products", JSON.stringify(featured_products));
-    res.json({ featuredProducts });
+    await redis.set("featured_products", JSON.stringify(featuredProducts));
+    return res.json({ featuredProducts });
   } catch (error) {
     console.log("Error in getFeaturedProducts controller ", error.message);
     return res
@@ -80,14 +80,14 @@ export const deleteProduct = async (req, res) => {
     if (product.image) {
       const publicImageId = product.image.split("/").pop().split(".")[0];
       try {
-        await cloudinary.uploader.destroy(p`products/${publicImageId}`);
-        console.log("Image deleted from cloudinary");
+        await cloudinary.uploader.destroy(`products/${publicImageId}`);
+        // console.log("Image deleted from cloudinary");
       } catch (error) {
         console.log("Error in deleting image from cloudinary ", error.message);
       }
     }
     await Product.findByIdAndDelete(req.params.id);
-    res.json({ message: "Product deleted successfully" });
+    return res.json({ message: "Product deleted successfully" });
   } catch (error) {
     console.log("Error in deleteProduct controller ", error.message);
     return res
@@ -113,7 +113,7 @@ export const getRecommendedProducts = async (req, res) => {
       },
     ]);
 
-    res.json(products);
+    return res.json(products);
   } catch (error) {
     console.log("Error in getRecommendedProducts controller ", error.message);
     return res
@@ -126,7 +126,7 @@ export const getProductsByCategory = async (req, res) => {
   const { category } = req.params;
   try {
     const categoryproducts = await Product.find({ category });
-    res.json(categoryproducts);
+    return res.json({ categoryproducts });
   } catch (error) {
     console.log("Error in getProductsBtCategory controller ", error.message);
     return res
@@ -143,9 +143,9 @@ export const toggleFeaturedProduct = async (req, res) => {
       const updatedProduct = await product.save();
       // updating redis
       await updateFeaturedProductsCache();
-      res.json(updatedProduct);
+      return res.json(updatedProduct);
     } else {
-      res.status(404).json({ message: "Product not found" });
+      return res.status(404).json({ message: "Product not found" });
     }
   } catch (error) {
     console.log("Error in toggleFeaturedProduct controller ", error.message);
