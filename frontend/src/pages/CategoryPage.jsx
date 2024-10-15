@@ -2,13 +2,16 @@ import { useEffect } from "react";
 import { useProductStore } from "../stores/useProductStore";
 import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
+import ProductCard from "../components/ProductCard";
 
 const CategoryPage = () => {
   const { fetchProductsByCategory, products } = useProductStore();
   const { category } = useParams();
 
   useEffect(() => {
+    console.log(products);
     fetchProductsByCategory(category);
+    console.log(products);
   }, [fetchProductsByCategory, category]);
   return (
     <div className="min-h-screen">

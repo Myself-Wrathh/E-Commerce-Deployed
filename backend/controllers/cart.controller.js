@@ -1,11 +1,11 @@
 import Product from "../models/product.model.js";
 
-export const addToCart = async (res, req) => {
+export const addToCart = async (req, res) => {
   try {
     const { productId } = req.body;
     const user = req.user;
 
-    const existingItem = await user.cartItem.find(
+    const existingItem = user.cartItem.find(
       (item) => item.id === productId
     );
     if (existingItem) {
@@ -13,12 +13,11 @@ export const addToCart = async (res, req) => {
     } else {
       user.cartItem.push(productId);
     }
-
     await user.save();
     res.json(user.cartItem);
   } catch (error) {
     console.log("Error in addToCart controller ", error.message);
-    return res
+    res
       .status(500)
       .json({ message: "Internal server error", error: error.message });
   }
@@ -35,7 +34,7 @@ export const removeAllFromCart = async (req, res) => {
       user.cartItem = user.cartItem.filter((item) => item.id !== productId);
     }
     await user.save();
-    res.status(201).json(user.cartItem);
+    return res.status(201).json(user.cartItem);
   } catch (error) {
     console.log("Error in removeAllFromCart controller ", error.message);
     return res
@@ -61,9 +60,9 @@ export const updateQuantity = async (req, res) => {
       }
       existingItem.quantity = quantity;
       await user.save();
-      res.json(user.cartItem);
+      return res.json(user.cartItem);
     } else {
-      res.json({ message: "Product not found" });
+      return res.json({ message: "Product not found" });
     }
   } catch (error) {
     console.log("Error in updateQuantity controller ", error.message);
@@ -87,7 +86,7 @@ export const getCartProducts = async (req, res) => {
         quantity: item.quantity,
       };
     });
-    res.json(cartItems);
+    return res.json(cartItems);
   } catch (error) {
     console.log("Error in getCartProducts controller ", error.message);
     return res

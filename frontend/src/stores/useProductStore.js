@@ -24,7 +24,6 @@ export const useProductStore = create((set) => ({
     set({ loading: true });
     try {
       const response = await axios.get("/products");
-      console.log("Fetched products:", response.data); // Add this log
       set({ loading: false, products: response.data.products });
     } catch (error) {
       console.error("Error fetching products:", error);
@@ -38,7 +37,8 @@ export const useProductStore = create((set) => ({
     set({ loading: true });
     try {
       const response = await axios.get(`/products/category/${category}`);
-      set({ products: response.data.products, loading: false });
+      // console.log("API Response:", response.data);
+      set({ products: response.data.categoryproducts, loading: false });
     } catch (error) {
       set({ loading: false });
       toast.error(error.response?.data?.message || "Failed to fetch products.");

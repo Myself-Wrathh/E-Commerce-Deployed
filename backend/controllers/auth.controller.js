@@ -58,7 +58,7 @@ export const signup = async (req, res) => {
 
     setCookies(res, accessToken, refreshToken);
 
-    res.status(201).json({
+    return res.status(201).json({
       user: {
         _id: user._id,
         name: user.name,
@@ -69,7 +69,7 @@ export const signup = async (req, res) => {
     });
   } catch (error) {
     console.log("Error in signup controller", error.message);
-    res
+    return res
       .status(500)
       .json({ message: "Internal server error ", error: error.message });
   }
@@ -106,7 +106,7 @@ export const login = async (req, res) => {
     return res.status(401).json({ message: "Password is Incorrect." });
   } catch (error) {
     console.log("Error in login controller ", error.message);
-    res
+    return res
       .status(500)
       .json({ message: "Internal server error ", error: error.message });
   }
@@ -125,10 +125,10 @@ export const logout = async (req, res) => {
     res.clearCookie("accessToken");
     res.clearCookie("refreshToken");
 
-    res.status(201).json({ message: "Logged out Successfully." });
+    return res.status(201).json({ message: "Logged out Successfully." });
   } catch (error) {
     console.log("Error in logout controller", error.message);
-    res
+    return res
       .status(401)
       .json({ message: "Internal server error ", error: error.message });
   }
@@ -163,10 +163,10 @@ export const refreshToken = async (req, res) => {
       maxAge: 15 * 60 * 1000,
     });
 
-    res.json({ message: "Token refreshed Successfully" });
+    return res.json({ message: "Token refreshed Successfully" });
   } catch (error) {
     console.log("Error in refresh token controller", error.message);
-    res
+    return res
       .status(500)
       .json({ message: "Internal server error ", error: error.message });
   }

@@ -48,6 +48,7 @@ const LoginPage = () => {
                   <Mail className="h-5 w-5 text-gray-400" aria-hidden="true" />
                 </div>
                 <input
+                  autoComplete="off"
                   id="email"
                   type="email"
                   required
