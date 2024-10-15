@@ -14,10 +14,11 @@ const Navbar = () => {
         <div className="flex flex-wrap justify-between items-center">
           <Link
             to={"/"}
-            className="text-2xl font-bold text-emerald-400 items-center space-x-2 flex ml-10"
+            className="text-2xl font-bold text-emerald-400 items-center space-x-2 flex ml-12"
           >
-            E-Commerce
+            Click- <span className="text-white">N</span> -Buy
           </Link>
+          <span className="text-2xl font-bold text-emerald-400 items-center space-x-2 flex ml-24">E-Commerce Store</span>
           <nav className="flex flex-wrap items-center gap-4">
             <Link
               to={"/"}

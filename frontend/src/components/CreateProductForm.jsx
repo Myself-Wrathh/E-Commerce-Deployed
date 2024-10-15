@@ -70,6 +70,7 @@ const CreateProductForm = () => {
             Product Name
           </label>
           <input
+            autoComplete="off"
             type="text"
             id="name"
             name="name"
