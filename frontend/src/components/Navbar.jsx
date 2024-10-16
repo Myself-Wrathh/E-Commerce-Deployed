@@ -1,4 +1,11 @@
-import { ShoppingCart, UserPlus, LogIn, LogOut, Lock } from "lucide-react";
+import {
+  ShoppingCart,
+  UserPlus,
+  LogIn,
+  LogOut,
+  Lock,
+  GithubIcon,
+} from "lucide-react";
 import { Link } from "react-router-dom";
 import { useUserStore } from "../stores/useUserStore";
 import { useCartStore } from "../stores/useCartStore";
@@ -18,7 +25,9 @@ const Navbar = () => {
           >
             Click- <span className="text-white">N</span> -Buy
           </Link>
-          <span className="text-2xl font-bold text-emerald-400 items-center space-x-2 flex ml-24">E-Commerce Store</span>
+          <span className="text-2xl font-bold text-emerald-400 items-center space-x-2 flex ml-24">
+            E-Commerce Store
+          </span>
           <nav className="flex flex-wrap items-center gap-4">
             <Link
               to={"/"}
@@ -53,13 +62,22 @@ const Navbar = () => {
               </Link>
             )}
             {user ? (
-              <button
-                className="bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded-md flex items-center transition duration-300 ease-in-out"
-                onClick={logout}
-              >
-                <LogOut size={18} />
-                <span className="hidden sm:inline ml-2">Log Out</span>
-              </button>
+              <>
+                <button
+                  className="bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded-md flex items-center transition duration-300 ease-in-out"
+                  onClick={logout}
+                >
+                  <LogOut size={18} />
+                  <span className="hidden sm:inline ml-2">Log Out</span>
+                </button>
+                <Link
+                  to={"https://github.com/Karan-develops"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <GithubIcon className="relative group text-gray-300 hover:text-emerald-400 transition duration-300 ease-in-out text-lg hover:cursor-pointer" />
+                </Link>
+              </>
             ) : (
               <>
                 <Link
@@ -75,6 +93,13 @@ const Navbar = () => {
                 >
                   <LogIn className="mr-2" size={18} />
                   Login
+                </Link>
+                <Link
+                  to={"https://github.com/Karan-develops"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <GithubIcon className="relative group text-gray-300 hover:text-emerald-400 transition duration-300 ease-in-out text-lg hover:cursor-pointer" />
                 </Link>
               </>
             )}
