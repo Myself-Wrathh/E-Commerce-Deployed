@@ -103,7 +103,7 @@ export const login = async (req, res) => {
         message: "User signed in successfully.",
       });
     }
-    return res.status(401).json({ message: "Password is Incorrect." });
+    return res.status(400).json({ message: "Password is Incorrect." });
   } catch (error) {
     console.log("Error in login controller ", error.message);
     return res
