@@ -20,8 +20,8 @@ const AnalyticsTab = () => {
   const [analyticsData, setAnalyticsData] = useState({
     users: 0,
     products: 0,
-    totalSales: 0,
-    totalRevenue: 0,
+    totalSales: 2,
+    totalRevenue: 10000,
   });
   useEffect(() => {
     const fetchAnalyticsData = async () => {
