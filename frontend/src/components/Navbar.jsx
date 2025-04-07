@@ -70,13 +70,6 @@ const Navbar = () => {
                   <LogOut size={18} />
                   <span className="hidden sm:inline ml-2">Log Out</span>
                 </button>
-                <Link
-                  to={"https://github.com/Karan-develops"}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <GithubIcon className="relative group text-gray-300 hover:text-emerald-400 transition duration-300 ease-in-out text-lg hover:cursor-pointer" />
-                </Link>
               </>
             ) : (
               <>
@@ -93,13 +86,6 @@ const Navbar = () => {
                 >
                   <LogIn className="mr-2" size={18} />
                   Login
-                </Link>
-                <Link
-                  to={"https://github.com/Karan-develops"}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <GithubIcon className="relative group text-gray-300 hover:text-emerald-400 transition duration-300 ease-in-out text-lg hover:cursor-pointer" />
                 </Link>
               </>
             )}
